@@ -7,3 +7,5 @@ $ pio run
 $ pio run -t compiledb
 $ pio run --target upload
 ```
+## LED notes
+* color order: `RBG`
