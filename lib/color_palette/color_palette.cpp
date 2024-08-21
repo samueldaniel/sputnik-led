@@ -22,18 +22,26 @@ const TProgmemPalette16 myRedWhiteBluePalette_p PROGMEM = {
     CRGB::Red,  CRGB::Red,   CRGB::Gray,  CRGB::Gray,
     CRGB::Blue, CRGB::Blue,  CRGB::Black, CRGB::Black};
 
-#define STRIP_2 2
-
-void color_palette_setup(CRGB *leds, int num_leds) {
-  FastLED.addLeds<WS2811, STRIP_2, RBG>(leds, num_leds);
-  FastLED.setBrightness(64);
+void color_palette_loop(CRGB *leds, uint8_t num_leds) {
+  // color_palette_periodic_change();
 
   currentPalette = RainbowColors_p;
   currentBlending = LINEARBLEND;
-}
 
-void color_palette_loop(CRGB *leds, uint8_t num_leds) {
-  color_palette_periodic_change();
+  // currentPalette = RainbowStripeColors_p;
+  // currentBlending = NOBLEND;
+
+  // currentPalette = RainbowStripeColors_p;
+  // currentBlending = LINEARBLEND;
+
+  // color_palette_setup_random();
+  // currentBlending = LINEARBLEND;
+
+  // currentPalette = CloudColors_p;
+  // currentBlending = LINEARBLEND;
+
+  // currentPalette = PartyColors_p;
+  // currentBlending = LINEARBLEND;
 
   static uint8_t startIndex = 0;
   startIndex = startIndex + 1; /* motion speed */
