@@ -32,10 +32,10 @@ void setup() {
   antennae[3] = strip_5;
 }
 void loop() {
-  // color_palette_loop(strip_2, NUM_LEDS);
-  // color_palette_loop(strip_3, NUM_LEDS);
-  // color_palette_loop(strip_4, NUM_LEDS);
-  // color_palette_loop(strip_5, NUM_LEDS);
+  color_palette_loop(strip_2, NUM_LEDS);
+  color_palette_loop(strip_3, NUM_LEDS);
+  color_palette_loop(strip_4, NUM_LEDS);
+  color_palette_loop(strip_5, NUM_LEDS);
   // cylon(antennae, 4, NUM_LEDS);
-  pacifica_loop(antennae, NUM_ANTENNAE, NUM_LEDS);
+  // pacifica_loop(antennae, NUM_ANTENNAE, NUM_LEDS);
 }
