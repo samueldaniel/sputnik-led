@@ -32,10 +32,31 @@ void setup() {
   antennae[3] = strip_5;
 }
 void loop() {
-  color_palette_loop(strip_2, NUM_LEDS);
-  color_palette_loop(strip_3, NUM_LEDS);
-  color_palette_loop(strip_4, NUM_LEDS);
-  color_palette_loop(strip_5, NUM_LEDS);
+  // color_palette_periodic_change();
+
+  CRGBPalette16 currentPalette;
+  TBlendType currentBlending;
+
+  currentPalette = RainbowColors_p;
+  currentBlending = LINEARBLEND;
+
+  // currentPalette = RainbowStripeColors_p;
+  // currentBlending = NOBLEND;
+
+  // currentPalette = RainbowStripeColors_p;
+  // currentBlending = LINEARBLEND;
+
+  // color_palette_setup_random();
+  // currentBlending = LINEARBLEND;
+
+  // currentPalette = CloudColors_p;
+  // currentBlending = LINEARBLEND;
+
+  // currentPalette = PartyColors_p;
+  // currentBlending = LINEARBLEND;
+
+  color_palette_loop(antennae, NUM_ANTENNAE, NUM_LEDS, currentPalette,
+                     currentBlending);
   // cylon(antennae, 4, NUM_LEDS);
   // pacifica_loop(antennae, NUM_ANTENNAE, NUM_LEDS);
 }

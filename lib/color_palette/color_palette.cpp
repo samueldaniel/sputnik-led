@@ -1,56 +1,35 @@
 #include "color_palette.hpp"
+#include "colorutils.h"
 
 #define UPDATES_PER_SECOND 100
 
-extern CRGBPalette16 myRedWhiteBluePalette;
-extern const TProgmemPalette16 myRedWhiteBluePalette_p PROGMEM;
-
-CRGBPalette16 currentPalette;
-TBlendType currentBlending;
-
-void color_palette_loop(CRGB *leds, uint8_t num_leds) {
-  // color_palette_periodic_change();
-
-  currentPalette = RainbowColors_p;
-  currentBlending = LINEARBLEND;
-
-  // currentPalette = RainbowStripeColors_p;
-  // currentBlending = NOBLEND;
-
-  // currentPalette = RainbowStripeColors_p;
-  // currentBlending = LINEARBLEND;
-
-  // color_palette_setup_random();
-  // currentBlending = LINEARBLEND;
-
-  // currentPalette = CloudColors_p;
-  // currentBlending = LINEARBLEND;
-
-  // currentPalette = PartyColors_p;
-  // currentBlending = LINEARBLEND;
-
+void color_palette_loop(CRGB **leds, int num_strips, uint8_t num_leds,
+                        CRGBPalette16 palette, TBlendType blending) {
   static uint8_t startIndex = 0;
   startIndex = startIndex + 1; /* motion speed */
 
-  color_palette_fill(startIndex, leds, num_leds);
+  color_palette_fill(startIndex, leds, num_strips, num_leds, palette, blending);
 
   FastLED.show();
   FastLED.delay(1000 / UPDATES_PER_SECOND);
 }
 
-void color_palette_fill(uint8_t colorIndex, CRGB *leds, uint8_t num_leds) {
+void color_palette_fill(uint8_t colorIndex, CRGB **leds, int num_strips,
+                        uint8_t num_leds, CRGBPalette16 palette,
+                        TBlendType blending) {
   uint8_t brightness = 255;
 
   for (int i = 0; i < num_leds; ++i) {
-    leds[i] = ColorFromPalette(currentPalette, colorIndex, brightness,
-                               currentBlending);
+    for (int s = 0; s < num_strips; ++s) {
+      leds[s][i] = ColorFromPalette(palette, colorIndex, brightness, blending);
+    }
     colorIndex += 3;
   }
 }
 
 // This function fills the palette with totally random colors.
-void color_palette_setup_random() {
+void color_palette_setup_random(CRGBPalette16 palette) {
   for (int i = 0; i < 16; ++i) {
-    currentPalette[i] = CHSV(random8(), 255, random8());
+    palette[i] = CHSV(random8(), 255, random8());
   }
 }
