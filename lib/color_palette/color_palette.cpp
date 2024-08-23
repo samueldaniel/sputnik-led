@@ -3,6 +3,8 @@
 
 #define UPDATES_PER_SECOND 100
 
+// globals, must be declared as extern in main.cpp to use
+// not a great pattern but i needed the *_loop() function signatures to match
 CRGBPalette16 color_palette_palette;
 TBlendType color_palette_blending;
 
