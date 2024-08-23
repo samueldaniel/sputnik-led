@@ -31,7 +31,7 @@ const CRGBPalette16 pacifica_palette_3 = {
     0x000B2D, 0x000C33, 0x000E39, 0x001040, 0x001450, 0x001860,
     0x001C70, 0x002080, 0x1040BF, 0x2060FF};
 
-void pacifica_loop(CRGB **leds, int num_strips, int num_leds) {
+void pacifica_loop(CRGB **leds, uint8_t num_strips, uint8_t num_leds) {
   EVERY_N_MILLISECONDS(20) {
     // Increment the four "color index start" counters, one for each wave layer.
     // Each is incremented at a different speed, and the speeds vary over time.
@@ -79,7 +79,7 @@ void pacifica_loop(CRGB **leds, int num_strips, int num_leds) {
 }
 
 // Add one layer of waves into the led array
-void pacifica_one_layer(CRGB **leds, int num_strips, int num_leds,
+void pacifica_one_layer(CRGB **leds, uint8_t num_strips, uint8_t num_leds,
                         const CRGBPalette16 &p, uint16_t cistart,
                         uint16_t wavescale, uint8_t bri, uint16_t ioff) {
   uint16_t ci = cistart;
@@ -100,7 +100,7 @@ void pacifica_one_layer(CRGB **leds, int num_strips, int num_leds,
 }
 // Add extra 'white' to areas where the four layers of light have lined up
 // brightly
-void pacifica_add_whitecaps(CRGB **leds, int num_strips, int num_leds) {
+void pacifica_add_whitecaps(CRGB **leds, uint8_t num_strips, uint8_t num_leds) {
   uint8_t basethreshold = beatsin8(9, 55, 65);
   uint8_t wave = beat8(7);
 
@@ -119,7 +119,7 @@ void pacifica_add_whitecaps(CRGB **leds, int num_strips, int num_leds) {
 }
 
 // Deepen the blues and greens
-void pacifica_deepen_colors(CRGB **leds, int num_strips, int num_leds) {
+void pacifica_deepen_colors(CRGB **leds, uint8_t num_strips, uint8_t num_leds) {
   for (int s = 0; s < num_strips; s++) {
     for (uint16_t i = 0; i < num_leds; i++) {
       leds[s][i].blue = scale8(leds[s][i].blue, 145);

@@ -1,5 +1,6 @@
 #include "Arduino.h"
 #include <FastLED.h>
+
 #include <color_palette.hpp>
 #include <pacifica.hpp>
 #include <utils.hpp>
@@ -17,7 +18,7 @@ CRGB strip_5[NUM_LEDS];
 CRGB *antennae[NUM_ANTENNAE];
 
 unsigned long last_millis;
-FUNCTION_POINTER current_loop;
+void (*current_loop)(CRGB **, uint8_t, uint8_t);
 int current_choice;
 
 // from color_palette lib
@@ -49,7 +50,7 @@ void setup() {
 void loop() {
   unsigned long now = millis();
   if (now - last_millis >= PATTERN_CYCLE_TIME) {
-    // int choice = random_int() % CHOICES;
+    // int choice = random(0, CHOICES + 1);
     int choice = current_choice;
     if (0 == choice) {
       color_palette_palette = RainbowColors_p;

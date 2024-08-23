@@ -6,7 +6,7 @@
 CRGBPalette16 color_palette_palette;
 TBlendType color_palette_blending;
 
-void color_palette_loop(CRGB **leds, int num_strips, uint8_t num_leds) {
+void color_palette_loop(CRGB **leds, uint8_t num_strips, uint8_t num_leds) {
   static uint8_t startIndex = 0;
   startIndex = startIndex + 1; /* motion speed */
 
@@ -16,7 +16,7 @@ void color_palette_loop(CRGB **leds, int num_strips, uint8_t num_leds) {
   FastLED.delay(1000 / UPDATES_PER_SECOND);
 }
 
-void color_palette_fill(uint8_t colorIndex, CRGB **leds, int num_strips,
+void color_palette_fill(uint8_t colorIndex, CRGB **leds, uint8_t num_strips,
                         uint8_t num_leds) {
   uint8_t brightness = 255;
 
