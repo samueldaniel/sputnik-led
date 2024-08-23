@@ -3,15 +3,29 @@
 int sinc_to_int8(double d) { return min(255, (int)(d * (double)256)); }
 double deg_to_rad(double deg) { return deg * DEG_TO_RAD; }
 double sinc(double rad) { return sin(rad) / rad; }
-double sinc_brightness(double deg) {
-  return abs(sinc_to_int8(sinc(deg_to_rad(deg)))) * 10;
+int sinc_brightness(double deg) {
+  return round_to_int(abs(sinc_to_int8(sinc(deg_to_rad(deg)))) * 10);
 }
+void sinc_loop(CRGB **leds, int num_strips, int num_leds) {
+  CHSV random_color = CHSV(random8(), 255, random8());
+  for (int i = 0; i < num_leds; i++) {
+    for (int s = 0; s < num_strips; s++) {
+      leds[s][i] = random_color;
+    }
+  }
+  for (int degs = 1; degs < 361; degs++) {
+    int brightness = sinc_brightness(degs);
+    FastLED.show(brightness);
+    delay(50);
+  }
+}
+
 void fade(CRGB *leds, int num_leds) {
   for (int i = 0; i < num_leds; i++) {
     leds[i].nscale8(250);
   }
 }
-void rainbow_cylon(CRGB **leds, int num_strips, int num_leds) {
+void rainbow_cylon_loop(CRGB **leds, int num_strips, int num_leds) {
   static uint8_t hue = 0;
   // First slide the led in one direction
   for (int i = 0; i < num_leds; i++) {
@@ -47,7 +61,7 @@ void rainbow_cylon(CRGB **leds, int num_strips, int num_leds) {
     delay(10);
   }
 }
-void cylon(CRGB **leds, int num_strips, int num_leds) {
+void cylon_loop(CRGB **leds, int num_strips, int num_leds) {
   for (int i = 0; i < num_leds; i++) {
     // First slide the led in one direction
     for (int s = 0; s < num_strips; s++) {
