@@ -17,6 +17,7 @@ CRGB *antennae[NUM_ANTENNAE];
 
 unsigned long last_millis;
 FUNCTION_POINTER current_loop;
+int current_choice;
 
 // from color_palette lib
 extern CRGBPalette16 color_palette_palette;
@@ -42,11 +43,13 @@ void setup() {
   color_palette_palette = RainbowColors_p;
   color_palette_blending = LINEARBLEND;
   current_loop = color_palette_loop;
+  current_choice = 0;
 }
 void loop() {
   unsigned long now = millis();
-  if (now - last_millis >= ONE_MIN_IN_MILLIS * 5) {
-    int choice = random_int() % CHOICES;
+  if (now - last_millis >= ONE_MIN_IN_MILLIS * 1) {
+    // int choice = random_int() % CHOICES;
+    int choice = current_choice;
     if (0 == choice) {
       color_palette_palette = RainbowColors_p;
       color_palette_blending = LINEARBLEND;
@@ -84,6 +87,7 @@ void loop() {
     if (8 == choice) {
       current_loop = sinc_loop;
     }
+    current_choice = (current_choice + 1) % CHOICES;
   }
   current_loop(antennae, NUM_ANTENNAE, NUM_LEDS);
   last_millis = now;
