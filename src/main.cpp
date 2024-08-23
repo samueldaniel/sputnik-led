@@ -8,6 +8,7 @@
 #define NUM_ANTENNAE 4
 #define ONE_MIN_IN_MILLIS 60000
 #define CHOICES 9
+#define PATTERN_CYCLE_TIME (ONE_MIN_IN_MILLIS * 1)
 
 CRGB strip_2[NUM_LEDS];
 CRGB strip_3[NUM_LEDS];
@@ -47,7 +48,7 @@ void setup() {
 }
 void loop() {
   unsigned long now = millis();
-  if (now - last_millis >= ONE_MIN_IN_MILLIS * 1) {
+  if (now - last_millis >= PATTERN_CYCLE_TIME) {
     // int choice = random_int() % CHOICES;
     int choice = current_choice;
     if (0 == choice) {
